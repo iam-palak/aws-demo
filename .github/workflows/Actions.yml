@@ -42,7 +42,7 @@ jobs:
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 523208255211.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Create ECR Repository
-        run: aws ecr create-repository --repository-name my-repo --region us-east-1
+        run: aws ecr create-repository --repository-name my-repo-new --region us-east-1
 
       - name: Build Docker Image
         run: docker build -t my-app:latest .

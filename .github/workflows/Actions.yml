@@ -26,9 +26,10 @@ jobs:
     needs: Setup
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
       - name: Build Docker Image
-        run: |
-          docker build -t my-app:latest .
+        run: docker build -t my-app:latest .
 
   Push-to-ECR:
     runs-on: ubuntu-latest

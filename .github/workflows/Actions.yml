@@ -10,7 +10,7 @@ on:
 
 jobs:
   Setup:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -24,7 +24,7 @@ jobs:
         run: mvn clean install
 
   Configure-AWS-Environment:
-    runs-on: ubuntu_lates
+    runs-on: ubuntu-latet
     needs: Setup
 
     steps: 

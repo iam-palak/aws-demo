@@ -17,10 +17,10 @@ jobs:
         env:
           DB_HOST: database-1.cr84ewkki10x.us-east-2.rds.amazonaws.com
           DB_USER: psql
-          DB_PASSWORD: stockhome
+          DB_PASS: stockhome
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d postgres -c "CREATE TABLE students (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT);"
+          PGPASSWORD=$DB_PASS psql -h $DB_HOST -U $DB_USER -d postgres -c "CREATE TABLE students (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT);"
 
       - name: Validate Data
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d postgres -c "SELECT * FROM students;"
+          PGPASSWORD=$DB_PASS psql -h $DB_HOST -U $DB_USER -d postgres -c "SELECT * FROM students;"

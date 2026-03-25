@@ -19,8 +19,8 @@ jobs:
           DB_USER: psql
           DB_PASSWORD: stockhome
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -u $DB_USER -d postgres -c "CREATE TABLE students (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT);"
+          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d postgres -c "CREATE TABLE students (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT);"
 
       - name: Validate Data
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -u $DB_USER -d postgres -c "SELECT * FROM students;"
+          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d postgres -c "SELECT * FROM students;"

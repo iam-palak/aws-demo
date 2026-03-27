@@ -1,0 +1,35 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [test]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::523208255211:role/GitHub-OIDC
+          aws-region: us-east-1
+
+      - name: ECR Login
+        run: |
+          aws ecr get-login-password | docker login --username AWS --password-stdin 523208255211.dkr.ecr.us-east-1.amazonaws.com
+          
+      - name: Create ECR Repository
+        run: aws ecr create-repository --repository-name my-repo-1 --region us-east-1
+
+      - name: Tag Docker Image
+        run: docker tag my-app:latest 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo:${{ github.sha }}
+      - name: Push Docker Image to ECR
+        run: docker push 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo:${{ github.sha }}
+

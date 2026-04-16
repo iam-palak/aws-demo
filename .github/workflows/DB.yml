@@ -23,4 +23,4 @@ jobs:
 
       - name: Validate Data
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -u $DB_USER -d postgres -c "SELECT * FROM students;"
+          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -u $DB_USER -d postgres -c "SELECT * FROM students;" 

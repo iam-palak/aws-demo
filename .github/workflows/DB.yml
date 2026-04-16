@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
           DB_HOST: database-1.cluster-csp0o8k8uf28.us-east-1.rds.amazonaws.com
-          DB_USER: psql
+          DB_USER: postgres
           DB_PASSWORD: stockhome
     steps:
       - name: Checkout Code

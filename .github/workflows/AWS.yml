@@ -33,11 +33,11 @@ jobs:
           aws ecr get-login-password | docker login --username AWS --password-stdin 523208255211.dkr.ecr.us-east-1.amazonaws.com
           
       - name: Create ECR Repository
-        run: aws ecr create-repository --repository-name my-repo6 --region us-east-1
+        run: aws ecr create-repository --repository-name my-repo7 --region us-east-1
 
       - name: Tag Docker Image
-        run: docker tag newapp:1 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo6:${{ github.sha }}
+        run: docker tag newapp:1 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo7:${{ github.sha }}
 
       - name: Push Docker Image to ECR
-        run: docker push 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo6:${{ github.sha }}
+        run: docker push 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo7:${{ github.sha }}
 

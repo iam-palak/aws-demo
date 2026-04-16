@@ -15,7 +15,7 @@ jobs:
 
       - name: Connect to RDS and Create Database
         env:
-          DB_HOST: database-1.cr84ewkki10x.us-east-2.rds.amazonaws.com
+          DB_HOST: database-1.cluster-csp0o8k8uf28.us-east-1.rds.amazonaws.com
           DB_USER: psql
           DB_PASSWORD: stockhome
         run: |

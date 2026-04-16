@@ -1,7 +1,9 @@
 name: AWS RDS
 
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - test3
 
 jobs:
   db-build:

@@ -8,6 +8,10 @@ on:
 jobs:
   db-build:
     runs-on: ubuntu-latest
+    env:
+          DB_HOST: database-1.cluster-csp0o8k8uf28.us-east-1.rds.amazonaws.com
+          DB_USER: psql
+          DB_PASSWORD: stockhome
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -15,14 +19,15 @@ jobs:
       - name: Install PostgreSQL Client
         run: sudo apt-get install postgresql-client -y
 
-      - name: Connect to RDS and Create Database
-        env:
-          DB_HOST: database-1.cluster-csp0o8k8uf28.us-east-1.rds.amazonaws.com
-          DB_USER: psql
-          DB_PASSWORD: stockhome
+      - name: Connect to RDS and Create Table
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -u $DB_USER -d postgres -c "CREATE TABLE students (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT);"
+          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT);"
+
+      - name: Insert Data into RDS
+        run: |
+          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "INSERT INTO users (name) VALUES ('GitHub Runner');"
+
 
       - name: Validate Data
         run: |
-          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -u $DB_USER -d postgres -c "SELECT * FROM students;" 
+          PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "SELECT * FROM users;" 

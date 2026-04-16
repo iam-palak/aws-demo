@@ -1,8 +1,9 @@
-name: Deploy to AWS
+name: AWS CICD Pipeline
 
 on:
   push:
-    branches: [test]
+    branches:
+      - test2
 
 permissions:
   id-token: write
@@ -10,15 +11,17 @@ permissions:
 
 jobs:
   deploy:
+    name: Deploy to AWS
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code 
+        uses: actions/checkout@v3   
 
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::523208255211:role/GitHub-OIDC
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}       
           aws-region: us-east-1
 
       - name: ECR Login
@@ -26,10 +29,11 @@ jobs:
           aws ecr get-login-password | docker login --username AWS --password-stdin 523208255211.dkr.ecr.us-east-1.amazonaws.com
           
       - name: Create ECR Repository
-        run: aws ecr create-repository --repository-name my-repo-1 --region us-east-1
+        run: aws ecr create-repository --repository-name my-repo4 --region us-east-1
 
       - name: Tag Docker Image
-        run: docker tag my-app:latest 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo:${{ github.sha }}
+        run: docker tag my-app:latest 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo4:${{ github.sha }}
+
       - name: Push Docker Image to ECR
-        run: docker push 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo:${{ github.sha }}
+        run: docker push 523208255211.dkr.ecr.us-east-1.amazonaws.com/my-repo4:${{ github.sha }}
 

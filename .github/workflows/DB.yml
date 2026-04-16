@@ -5,13 +5,17 @@ on:
     branches:
       - test3
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   db-build:
     runs-on: ubuntu-latest
     env:
           DB_HOST: database-1.cluster-csp0o8k8uf28.us-east-1.rds.amazonaws.com
           DB_USER: postgres
-          DB_PASSWORD: stockhome
+          DB_PASSWORD: database-1.cluster-csp0o8k8uf28.us-east-1.rds.amazonaws.com:5432/?Action=connect&DBUser=postgres&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAXTUNEM3VQFH5GVES%2F20260416%2Fus-east-1%2Frds-db%2Faws4_request&X-Amz-Date=20260416T112151Z&X-Amz-Expires=900&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQC1J%2BlTkTdD9XVSm%2FyV12jPt0z9%2BiDUVxN6CAJ9o9%2BmGAIhAImmRmYFL4wwbYbtQ52PkWTUvX%2BpEJ38J7lWWsJ2IgXWKuUCCLz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNTIzMjA4MjU1MjExIgx01VqpxFyHAxmhlpgquQKQdxVyV824rChXK4lL%2BoVmNodrJktY7WWTi5oDAITBD1Mc%2Fp0tctSVByx65qBfoZU8lDhFT9lishZj8LG3ujm94nD0cWMZtlrHtXmzXWOVe6cQ9DYK3s5LBFsShnMgJpQlQuVGMk4tqJvpo5S3apFJNQE8wx5ph%2Ft0A4LjNmE19%2FnUQ3xvSumuVWqmFPO4m1%2B8qttaoSn8oBhHjb5ZarXoGaNMq1LRYTZo20O8lz%2FZRSK9Xsi9RKXFvgGe3w6JgWvzO%2Fbz9AUgwcam4QIsfHTzJ1y8DuBixm8nbvdMhcti%2BSvKNkdjcdqrtB86QjLMOLQWCGJlefF6Q9M1lZgctaTr5XLj%2B%2F01P8%2FKl%2Be1bmlcUR%2FIFBPr%2FEChbtiNCqckI%2FsKc04vr7iJ%2FMNna8hLdA6yTpGZzO4wL0XWMNfhgs8GOqwCgD2aBEtKRUunDXFVuxGEIlere%2BNs2eAVMewZ0J0Eb%2BZNbnCTAY%2BuOEs8YVSCOxyRO4Sf2meIHaaRw5Oxscd%2FoY5x2DPjix6%2FUPAZxZjv9y5SsGgk6WC5RPjhbIESSR8gld2XEHLFowcXu3BkJyEFLxK8vP7bCQMkJsFQBSE3h%2F90QlUQ%2BllyRY48uvNi%2BZZ0IaCw3%2BP7rhHz8Cvh20lAnnCUU7YqaglxORtgVZbxeIU5J1CVe3ErkWq%2F6HVnb%2BlZ%2FcGjQTJPLDmLhL%2F5w3J1dprMRrDJNsVlCNg4M%2FRnJWvIsy4UCcr9ywjFo39JDIpny3taQRH8z59GU0MXfgjuaI8H%2Fq%2BNOgfifg3g7xDEmD0%2B%2FTB7%2BIhsIzRKkCJG42npffcxxiyFIpP9qHSj&X-Amz-Signature=767796fe7254135395067c10b3dba7e4eab541f0d24c794a684447dcb2b3db6a&X-Amz-SignedHeaders=host
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
